@@ -13,7 +13,6 @@ provider "google" {
   project     = var.project
   region      = var.region
 }
-
 resource "google_storage_bucket" "seattle-crime-data-bucket" { # Provide bucket name here but does not need to be uniquely identifiable 
   name          = var.gcs_bucket_name                          # Uniquely identifiable bucket name needs to be provided here
   location      = var.location
