@@ -1,9 +1,9 @@
 
-# Seattle Crime [2008 - 2024] Data Pipeline
+# Seattle Crime Data Pipeline: From Raw Data to Insights (2008 - 2024)
 ![Seattle Crime Image](images/seattle_crime_image.png)
 
 ## Table of Contents
-- [Seattle Crime \[2008 - 2024\] Data Pipeline](#seattle-crime-2008---2024-data-pipeline)
+- [Seattle Crime Data Pipeline: From Raw Data to Insights (2008 - 2024)](#seattle-crime-data-pipeline-from-raw-data-to-insights-2008---2024)
   - [Table of Contents](#table-of-contents)
   - [Project Description](#project-description)
     - [Questions Addressed:](#questions-addressed)
@@ -14,9 +14,8 @@
   - [Project Reproducibility](#project-reproducibility)
     - [Prerequisites:](#prerequisites)
     - [Steps:](#steps)
-  - [Clean Up](#clean-up)
-  - [Enhancements and Future Work](#enhancements-and-future-work)
-  - [Contact](#contact)
+  - [Resource Clean Up](#resource-clean-up)
+  - [Future Enhancements](#future-enhancements)
 
 ## Project Description
 In this project, we aim to build a robust data pipeline that takes Seattle crime data from the years 2008 to 2024, processes it, and makes it available for analysis and visualization. The project encapsulates best practices in data engineering, including the use of containerization, infrastructure as code, and workflow orchestration.
@@ -65,12 +64,16 @@ This project utilized the following:
 
 ## Pipeline Overview
 The pipeline consists of several stages:
-1. Data ingestion from source to the data lake.
+1. Data ingestion from source to local database (for exploratory analysis) and cloud data lake.
 2. Data cleaning and transformation.
 3. Data loading into the data warehouse.
 4. Data analysis and visualization.
+5. IaC for cloud resource management
 
 Each stage is designed to be modular and reusable, facilitating easy maintenance and scalability of the pipeline.
+
+<img src="images/Seattle_Crime_Pipeline.png" width="800" height="auto" alt="Pipeline Flow">
+
 
 ## Project Reproducibility
 To ensure the project can be reproduced:
@@ -81,6 +84,7 @@ To ensure the project can be reproduced:
 ### Prerequisites:
 - Docker installed for local setup.
 - Google Cloud account for remote setup.
+- Git for repository cloning
 
 ### Steps:
 1. Clone the repository.
@@ -88,17 +92,13 @@ To ensure the project can be reproduced:
 3. Run the Docker containers.
 4. ... (additional steps)
 
-## Clean Up
+## Resource Clean Up
 Instructions for cleaning up resources to avoid incurring unnecessary cloud costs are provided in the documentation. This includes steps for tearing down infrastructure provisioned by Terraform and removing data from GCS and BigQuery.
 
-## Enhancements and Future Work
-- Implement additional data sources.
-- Fully host pipeline in the cloud
-- Integrate advanced machine learning models for predictive analysis.
+## Future Enhancements
+- Implement additional data sources to make correlations for broader insights.
+- Fully host pipeline in the cloud.
 - Improve the dashboard with more interactive features.
 
-## Contact
-For any queries regarding the project, reach out to [example@email.com](mailto:example@email.com).
-"""
 
 
