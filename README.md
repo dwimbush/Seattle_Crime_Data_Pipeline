@@ -1,14 +1,16 @@
 
-# Seattle Crime Data Pipeline: From Raw Data to Insights (2008 - 2024)
+# Seattle Crime Data Pipeline: From Raw Data to Insights (2008 - present)
 ![Seattle Crime Image](images/seattle_crime_image.png)
 
 ## Table of Contents
-- [Seattle Crime Data Pipeline: From Raw Data to Insights (2008 - 2024)](#seattle-crime-data-pipeline-from-raw-data-to-insights-2008---2024)
+- [Seattle Crime Data Pipeline: From Raw Data to Insights (2008 - present)](#seattle-crime-data-pipeline-from-raw-data-to-insights-2008---present)
   - [Table of Contents](#table-of-contents)
   - [Project Description](#project-description)
     - [Questions Addressed:](#questions-addressed)
   - [Dataset](#dataset)
   - [Findings and Dashboard](#findings-and-dashboard)
+    - [Seattle Crime Data Analysis](#seattle-crime-data-analysis)
+    - [Some Recommendations](#some-recommendations)
   - [Technology and Tools](#technology-and-tools)
   - [Pipeline Overview](#pipeline-overview)
   - [Project Reproducibility](#project-reproducibility)
@@ -47,7 +49,29 @@ For more detailed information and to explore the dataset further, please visit t
 
 
 ## Findings and Dashboard
-The insights derived from the data are visualized in a dashboard that provides an interactive interface for stakeholders to explore the crime data. The dashboard highlights key metrics and allows users to filter data based on different criteria such as date range, crime type, and geographic area.
+The insights derived from the data are visualized in a dashboard that provides an interactive interface for stakeholders to explore the crime data. The dashboard highlights key metrics and allows users to filter data based on different criteria such as year, crime type, and Seattle precinct.
+
+![Seattle Crime Image](/images/seattle_crime_dashboard.png)
+
+### Seattle Crime Data Analysis
+
+This analysis leverages data from over 1 million reported crimes in Seattle, yielding the following insights:
+
+- **Theft Incidents**: Theft from motor vehicles is the most reported offense, tallying 174,227 incidents, suggesting a significant issue with vehicle-related property crimes.
+- **Property Crime**: A staggering 74.6% of crimes fall under property-related offenses, with "All Other Larceny" and "Burglary/Breaking & Entering" accounting for 92,560 and 123,723 incidents, respectively.
+- **Assault Reports**: Notably, simple and aggravated assaults together account for over 120,000 reports, indicating prevalent violent crime.
+- **Precinct Disparities**: The North precinct reports the highest crime numbers at 352,592 incidents, followed closely by the West (Downtown) precinct with 293,996 incidents.
+- **Hourly Crime Peaks**: Afternoon hours, particularly around 1 PM and 2 PM, show the highest crime activity, suggesting a need for increased vigilance during these times.
+- **Day of the Week Variation**: Crime reports are fairly consistent across the week, with a slight uptick during weekends, emphasizing the need for constant readiness.
+
+### Some Recommendations
+
+- Enhance vehicle security protocols due to high theft from motor vehicles.
+- Bolster property crime prevention strategies to tackle the dominant crime category.
+- Implement targeted patrols during peak hours to mitigate afternoon crime spikes.
+- Allocate resources efficiently across precincts, with a focus on North and West precincts.
+- Maintain steady law enforcement coverage throughout the week, considering the marginal increase on weekends.
+
 
 ## Technology and Tools
 This project utilized the following:
@@ -72,7 +96,9 @@ The pipeline consists of several stages:
 
 Each stage is designed to be modular and reusable, facilitating easy maintenance and scalability of the pipeline.
 
-<img src="images/Seattle_Crime_Pipeline.png" width="800" height="auto" alt="Pipeline Flow">
+**click image to view full-size**
+
+<img src="images/seattle_crime_pipeline.png" width="800" height="auto" alt="Pipeline Flow">
 
 
 ## Project Reproducibility
