@@ -1,5 +1,20 @@
+# Environment variables
+.env
+
 terraform/key/seattle-crime-service-account-key.json
 *.json
+
+# Cache and log directories
+.cache/
+.operation_history/
+.logs/
+
+# Data files
+*.parquet
+*.db
+
+# Local configuration files that may contain sensitive information
+dbt/profiles.yml
 
 # Local .terraform directories
 **/.terraform/*
@@ -35,3 +50,9 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# Additional directories and files to ignore
+.idea/
+*.pyc
+__pycache__/
+*.log
