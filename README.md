@@ -72,7 +72,6 @@ This analysis leverages data from over 1 million reported crimes in Seattle, yie
 - Allocate resources efficiently across precincts, with a focus on North and West precincts.
 - Maintain steady law enforcement coverage throughout the week, considering the marginal increase on weekends.
 
-
 ## Technology and Tools
 This project utilized the following:
 - **Containerization:** [Docker](https://www.docker.com/)
@@ -125,6 +124,3 @@ Instructions for cleaning up resources to avoid incurring unnecessary cloud cost
 - Implement additional data sources to make correlations for broader insights.
 - Fully host pipeline in the cloud. The mage docker container is the only remaining piece.
 - Improve the dashboard with more interactive features and improve the visualizations.
-
-
-
