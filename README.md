@@ -51,7 +51,7 @@ For more detailed information and to explore the dataset further, please visit t
 ## Findings and Dashboard
 The insights derived from the data are visualized in a dashboard that provides an interactive interface for stakeholders to explore the crime data. The dashboard highlights key metrics and allows users to filter data based on different criteria such as year, crime type, and Seattle precinct.
 
-![Seattle Crime Image](/images/seattle_crime_dashboard.png)
+![Seattle Crime Image](images/seattle_crime_dashboard.png)
 
 ### Seattle Crime Data Analysis
 
