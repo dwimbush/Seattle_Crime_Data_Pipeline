@@ -123,8 +123,8 @@ Instructions for cleaning up resources to avoid incurring unnecessary cloud cost
 
 ## Future Enhancements
 - Implement additional data sources to make correlations for broader insights.
-- Fully host pipeline in the cloud.
-- Improve the dashboard with more interactive features.
+- Fully host pipeline in the cloud. The mage docker container is the only remaining piece.
+- Improve the dashboard with more interactive features and improve the visualizations.
 
 
 
