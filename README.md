@@ -10,7 +10,7 @@
   - [Dataset](#dataset)
   - [Findings and Dashboard](#findings-and-dashboard)
     - [Seattle Crime Data Analysis](#seattle-crime-data-analysis)
-    - [A Focus on Recent Seattle Crime Data Over Last 7 Days](#a-focus-on-recent-seattle-crime-data-over-last-7-days)
+    - [A Focus on Seattle Crime Data Over Last 7 Days From Latest Run](#a-focus-on-seattle-crime-data-over-last-7-days-from-latest-run)
     - [Some Recommendations](#some-recommendations)
   - [Technology and Tools](#technology-and-tools)
   - [Pipeline Overview](#pipeline-overview)
@@ -66,8 +66,7 @@ This analysis leverages data from over 1 million reported crimes in Seattle, yie
 - **Day of the Week Variation**: Crime reports are fairly consistent across the week, with a slight uptick during weekends, emphasizing the need for constant readiness.
 - **Crime Category Distribution**: In the Crime Category Distribution, the "NOT_A_CRIME" label may raise questions. This category typically includes incidents that are initially reported as crimes but are later found to fall outside the scope of criminal activity, such as justifiable homicides, police actions deemed lawful, or cases that are reclassified upon further investigation.
 
-
-### A Focus on Recent Seattle Crime Data Over Last 7 Days
+### A Focus on Seattle Crime Data Over Last 7 Days From Latest Run
 ![Seattle Crime Dashboard 2](images/crimes_last_7_days.png)
 The bar chart offers a breakdown of criminal activities in Seattle by precinct over the last week. Notably, the North and West (Downtown) precincts exhibit the highest diversity and volume of crimes. In these areas, `Burglary/Breaking & Entering`, `Motor Vehicle Theft`, and `Theft From Motor Vehicle` are the most common offenses, suggesting a particular vulnerability to property-related crimes. Across all precincts, these three crime types consistently appear as the top concerns, underscoring the need for enhanced vehicle and property security measures in Seattle. The prevalence of `Aggravated Assault` and `Simple Assault` in the North precinct may also indicate a hotspot for violent crime, warranting focused policing and community intervention efforts. Conversely, the `UNKNOWN` category suggests data recording discrepancies or incidents with unestablished locations, which highlights an area for administrative improvement. 
 
