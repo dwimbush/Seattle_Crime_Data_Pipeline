@@ -10,6 +10,7 @@
   - [Dataset](#dataset)
   - [Findings and Dashboard](#findings-and-dashboard)
     - [Seattle Crime Data Analysis](#seattle-crime-data-analysis)
+    - [A Focus on Recent Seattle Crime Data Over Last 7 Days](#a-focus-on-recent-seattle-crime-data-over-last-7-days)
     - [Some Recommendations](#some-recommendations)
   - [Technology and Tools](#technology-and-tools)
   - [Pipeline Overview](#pipeline-overview)
@@ -51,22 +52,29 @@ For more detailed information and to explore the dataset further, please visit t
 ## Findings and Dashboard
 The insights derived from the data are visualized in a dashboard that provides an interactive interface for stakeholders to explore the crime data. The dashboard highlights key metrics and allows users to filter data based on different criteria such as year, crime type, and Seattle precinct.
 
-![Seattle Crime Image](images/seattle_crime_dashboard.png)
+![Seattle Crime Dashboard 1](images/seattle_crime_dashboard.png)
 
 ### Seattle Crime Data Analysis
 
 This analysis leverages data from over 1 million reported crimes in Seattle, yielding the following insights:
 
-- **Theft Incidents**: Theft from motor vehicles is the most reported offense, tallying 174,227 incidents, suggesting a significant issue with vehicle-related property crimes.
-- **Property Crime**: A staggering 74.6% of crimes fall under property-related offenses, with "All Other Larceny" and "Burglary/Breaking & Entering" accounting for 92,560 and 123,723 incidents, respectively.
-- **Assault Reports**: Notably, simple and aggravated assaults together account for over 120,000 reports, indicating prevalent violent crime.
-- **Precinct Disparities**: The North precinct reports the highest crime numbers at 352,592 incidents, followed closely by the West (Downtown) precinct with 293,996 incidents.
+- **Theft Incidents**: Theft from motor vehicles is the most reported offense, tallying 176,053 incidents, suggesting a significant issue with vehicle-related property crimes.
+- **Property Crime**: A staggering 74.7% of crimes fall under property-related offenses, with "All Other Larceny" and "Burglary/Breaking & Entering" accounting for 93,774 and 126,027 incidents, respectively.
+- **Assault Reports**: Notably, simple and aggravated assaults together account for over 122,000 reports, indicating prevalent violent crime.
+- **Precinct Disparities**: The North precinct reports the highest crime numbers at 358,051 incidents, followed closely by the West (Downtown) precinct with 297,941 incidents.
 - **Hourly Crime Peaks**: Afternoon hours, particularly around 1 PM and 2 PM, show the highest crime activity, suggesting a need for increased vigilance during these times.
 - **Day of the Week Variation**: Crime reports are fairly consistent across the week, with a slight uptick during weekends, emphasizing the need for constant readiness.
+- **Crime Category Distribution**: In the Crime Category Distribution, the "NOT_A_CRIME" label may raise questions. This category typically includes incidents that are initially reported as crimes but are later found to fall outside the scope of criminal activity, such as justifiable homicides, police actions deemed lawful, or cases that are reclassified upon further investigation.
+
+
+### A Focus on Recent Seattle Crime Data Over Last 7 Days
+![Seattle Crime Dashboard 2](images/crimes_last_7_days.png)
+The bar chart offers a breakdown of criminal activities in Seattle by precinct over the last week. Notably, the North and West (Downtown) precincts exhibit the highest diversity and volume of crimes. In these areas, `Burglary/Breaking & Entering`, `Motor Vehicle Theft`, and `Theft From Motor Vehicle` are the most common offenses, suggesting a particular vulnerability to property-related crimes. Across all precincts, these three crime types consistently appear as the top concerns, underscoring the need for enhanced vehicle and property security measures in Seattle. The prevalence of `Aggravated Assault` and `Simple Assault` in the North precinct may also indicate a hotspot for violent crime, warranting focused policing and community intervention efforts. Conversely, the `UNKNOWN` category suggests data recording discrepancies or incidents with unestablished locations, which highlights an area for administrative improvement. 
 
 ### Some Recommendations
 
 - Enhance vehicle security protocols due to high theft from motor vehicles.
+- Given the significant portion of crime represented by theft and burglary, it's likely that future efforts in crime prevention will need to continue focusing on these areas.
 - Bolster property crime prevention strategies to tackle the dominant crime category.
 - Implement targeted patrols during peak hours to mitigate afternoon crime spikes.
 - Allocate resources efficiently across precincts, with a focus on North and West precincts.
@@ -118,9 +126,18 @@ To ensure the project can be reproduced:
 4. ... (additional steps)
 
 ## Resource Clean Up
-Instructions for cleaning up resources to avoid incurring unnecessary cloud costs are provided in the documentation. This includes steps for tearing down infrastructure provisioned by Terraform and removing data from GCS and BigQuery.
+Here are instructions for cleaning up Terraform resources to avoid incurring unnecessary cloud costs. You will want to tear down infrastructure provisioned by Terraform and immediately remove data from GCS and BigQuery.
+
+When it's time to clean up resources on Google Cloud Platform (GCP) and prevent additional charges, Terraform provides a straightforward method for resource destruction. The `terraform destroy` command is designed to remove infrastructure managed by Terraform. It's always good practice to double-check which resources are slated for removal before confirming the action to avoid unintended data loss or service interruption. 
+
+Here's how you use it - before running the destroy command, ensure that you are in the correct Terraform working directory and that your Terraform state reflects the current infrastructure you intend to delete. Additionally, review the plan output carefully before confirming the destruction of resources. Finally type the following command at your prompt:
+
+```sh
+terraform destroy
+```
 
 ## Future Enhancements
 - Implement additional data sources to make correlations for broader insights.
 - Fully host pipeline in the cloud. The mage docker container is the only remaining piece.
 - Improve the dashboard with more interactive features and improve the visualizations.
+- General respository clean up of unecessary files

@@ -10,7 +10,6 @@ load_dotenv()
 def trigger_dbt_run(data_frame, *args, **kwargs):
     account_id = '255399'  # your dbt Cloud account ID
     job_id = '565791'  # your dbt Cloud job ID
-    # dbt_api_token = 'dbtc_hPnMbiYfiL8MIbWssRPJA24hcqtv58isXtR37tRs-vM95l6VMc'  # your dbt Cloud API token
 
     dbt_api_token = os.getenv('DBT_API_TOKEN')  # Read the dbt Cloud API token from environment variable
 
@@ -36,4 +35,5 @@ def trigger_dbt_run(data_frame, *args, **kwargs):
         print(f'Failed to trigger dbt Cloud job. Status code: {response.status_code}')
         print(f'Response: {response.text}')
         return None
+
 
