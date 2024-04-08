@@ -1,0 +1,113 @@
+version: 2
+
+models:
+  - name: monthly_crime_rate_changes
+    description: >
+      This model calculates the month-over-month changes in crime rates across different precincts and crime types.
+      It aggregates raw crime data on a monthly basis and computes the percentage change in crime rates between consecutive
+      months for each precinct and crime category. This model is essential for identifying trends over time, understanding seasonal
+      variations in crime rates, and supporting strategic planning for law enforcement resource allocation. Data is sourced from
+      the `raw_crime_data` table, with transformations applied to normalize crime categories and ensure consistent precinct naming conventions.
+      Users should note that percentage changes are computed relative to the previous month and may be influenced by external factors not
+      captured in this dataset.
+    columns:
+      - name: year
+        data_type: int64
+        description: "The year when the crime was reported."
+      - name: month
+        data_type: int64
+        description: "The month when the crime was reported."
+      - name: total_crimes
+        data_type: int64
+        description: "The total number of crimes reported in the month."
+      - name: prev_month_crimes
+        data_type: int64
+        description: "The number of crimes reported in the previous month."
+      - name: percentage_change
+        data_type: float64
+        description: "The percentage change in crime rates compared to the previous month."
+
+  - name: crime_by_day_of_week
+    description: >
+      This model offers an analysis of crime incidents based on days of the week.
+      It provides insights into which days crimes are most frequently reported, 
+      which can inform staffing and resource allocation for law enforcement agencies.
+    columns:
+      - name: day_of_week
+        data_type: string
+        description: "The day of the week when the incident occurred, e.g., 'Monday', 'Tuesday', etc."
+      - name: incident_count
+        data_type: int64
+        description: "The total number of incidents reported for each day of the week."
+
+  - name: crime_category_analysis
+    description: >
+      This model analyzes crimes by their categorization against persons, property, or society.
+      It aggregates incidents into these high-level categories to understand the broader impact and trends.
+    columns:
+      - name: crime_against_category
+        data_type: string
+        description: "The category of the crime, indicating whether it is against a person, property, or society."
+      - name: offense_parent_group
+        data_type: string
+        description: "The parent group of the offense providing a broader classification of the crime type."
+      - name: incident_count
+        data_type: int64
+        description: "The count of incidents falling within each crime category and offense parent group."
+
+  - name: crime_hotspots_by_hour
+    description: >
+      This model identifies crime hotspots based on the hour of the day, highlighting the times with the highest crime rates.
+      This can be utilized for patrol scheduling and community safety programs.
+    columns:
+      - name: hour_of_day
+        data_type: int64
+        description: "The hour of the day when the incident occurred, represented in a 24-hour format."
+      - name: incident_count
+        data_type: int64
+        description: "The number of incidents reported during each hour across all precincts."
+
+  - name: highest_crime_hour_by_precinct
+    description: >
+      This model determines which hour of the day has the highest crime rate for each precinct.
+      It is instrumental in decision-making for targeted crime prevention efforts within specific precincts.
+    columns:
+      - name: precinct
+        data_type: string
+        description: "The precinct in which the incident was reported, serving as a geographical identifier."
+      - name: hour_of_day
+        data_type: int64
+        description: "The hour during which the highest number of incidents were reported for the precinct, in 24-hour time."
+      - name: incident_count
+        data_type: int64
+        description: "The total count of incidents that occurred during the hour with the highest crime rate within the precinct."
+
+  - name: top_crime_locations
+    description: >
+      This model highlights the geographic locations with the highest number of crime incidents,
+      using rounded longitude and latitude for general area identification.
+    columns:
+      - name: rounded_longitude
+        data_type: float64
+        description: "The rounded longitude coordinate of the location where incidents are frequently reported."
+      - name: rounded_latitude
+        data_type: float64
+        description: "The rounded latitude coordinate of the location where incidents are frequently reported."
+      - name: incident_count
+        data_type: int64
+        description: "The number of incidents reported within the vicinity of the rounded geographic coordinates."
+
+  - name: crime_offense_analysis
+    description: >
+      This model conducts a detailed analysis of incidents by offense type within the broader crime against categories.
+      It can be used to identify specific trends and patterns in offense types, aiding in detailed criminological studies.
+    columns:
+      - name: crime_against_category
+        data_type: string
+        description: "The category of the crime, providing a high-level classification such as against persons, property, or society."
+      - name: offense
+        data_type: string
+        description: "The specific offense committed, offering a granular view of the crime type."
+      - name: incident_count
+        data_type: int64
+        description: "The frequency of each specific offense within its broader crime category."
