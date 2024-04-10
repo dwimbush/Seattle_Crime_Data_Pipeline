@@ -16,9 +16,14 @@
   - [Pipeline Overview](#pipeline-overview)
   - [Project Reproducibility](#project-reproducibility)
     - [Prerequisites:](#prerequisites)
-    - [Steps:](#steps)
+    - [Steps 1: Clone the repository](#steps-1-clone-the-repository)
+    - [Step 2: Setup of GCP Project](#step-2-setup-of-gcp-project)
+    - [Step 3: Terraform Setup for Resource Management](#step-3-terraform-setup-for-resource-management)
+    - [Step 5: dbt Setup for Transformations](#step-5-dbt-setup-for-transformations)
+    - [Step 6: Setup visualizations using Looker Studio](#step-6-setup-visualizations-using-looker-studio)
   - [Resource Clean Up](#resource-clean-up)
   - [Future Enhancements](#future-enhancements)
+  - [Special Thanks](#special-thanks)
 
 ## Project Description
 In this project, we aim to build a robust data pipeline that takes Seattle crime data from the years 2008 to 2024, processes it, and makes it available for analysis and visualization. The project encapsulates best practices in data engineering, including the use of containerization, infrastructure as code, and workflow orchestration.
@@ -102,29 +107,132 @@ The pipeline consists of several stages:
 
 Each stage is designed to be modular and reusable, facilitating easy maintenance and scalability of the pipeline.
 
+The source data for this project was found to be fairly high quality with minimal issues. For this project, utilizing the dataset required only minimal transformations. These transformations were efficiently carried out using Mage.ai during the initial extract and load stages of our workflow. Subsequent adjustments were made during the DBT (Data Build Tool) phase to ensure the data was suited for analysis needs.
+
+In the development and optimization of the data storage strategy for this project, a key decision was made to partition the dataset by year. This strategic choice, implemented in the data export process, was driven by reasons rooted in efficiency, performance, and the specific characteristics of this dataset, which encompasses over 1.1 million rows of crime data spanning from 2008 to the present.
+
+The decision to partition the Seattle Crime dataset by year was made for optimizing data storage costs, simplifying data management, and ensuring high-performance data access for analysis and reporting. The partitioning strategy is a testament to implementing best practices in data engineering to support the efficient, scalable handling of large-scale datasets.
+
 **click image to view full-size**
 
 <img src="images/seattle_crime_pipeline.png" width="800" height="auto" alt="Pipeline Flow">
 
 
 ## Project Reproducibility
-To ensure the project can be reproduced:
-- All code is stored in a version-controlled git repository.
-- Detailed setup and installation instructions are provided.
-- Environment variables and configurations are managed through `io_config.yaml`.
 
 ### Prerequisites:
-- Docker installed for local setup.
-- Google Cloud account for remote setup.
-- Git for repository cloning
+- [Docker installed](https://docs.docker.com/get-docker/)
+- [Google Cloud Platform (GCP)](https://cloud.google.com/) account for remote setup
+- [Git installed](https://git-scm.com/) for repository cloning 
+- [Terraform is installed](https://learn.hashicorp.com/tutorials/terraform/install-cli) to create GCP resources
+- [dbt cloud](https://www.getdbt.com/) account
+-  [Google SDK installed](https://cloud.google.com/sdk/docs/install-sdk) to interact with GCP from your prompt
 
-### Steps:
-1. Clone the repository.
-2. Set up environment variables.
-3. Run the Docker containers.
-4. ... (additional steps)
+**Note:** this setup was only tested in a Windows environment but should work in other environments with minimal modifications, if any at all
 
-## Resource Clean Up
+### Steps 1: Clone the repository
+
+   ```bash
+    git clone https://github.com/dwimbush/Seattle_Crime_Data_Pipeline.git
+  ```
+
+### Step 2: Setup of GCP Project
+- Creation of new GCP project and note its ID. 
+- Activated the following API's within your GCP project:
+   * https://console.cloud.google.com/apis/library/iam.googleapis.com
+   * https://console.cloud.google.com/apis/library/iamcredentials.googleapis.com
+
+- Create a [service account](https://console.cloud.google.com/iam-admin/serviceaccounts) and grant appropriate roles and permissions:
+  * BigQuery Admin
+  * Storage Admin
+  * Storage Object Admin 
+- Download the JSON authentication key and rename to a more appropriate name if preferred.  For example: `seattle-crime-service-account-key.json` 
+- Move this key to the `key` folder within the project's `Terraform` directory - **IMPORTANT: Do not share this key with anyone!**
+- Set and export the GOOGLE_APPLICATION_CREDENTIALS using the following command from your prompt:
+  ```bash
+  export GOOGLE_APPLICATION_CREDENTIALS="<path/to/authkeys>.json"
+  ```
+- Make sure you have [Google SDK](https://cloud.google.com/sdk/docs/install-sdk) installed in order to authenticate against GCP
+- You will now be able to authenticate with GCP by running the following commands from your prompt: 
+  ```
+  gcloud auth activate-service-account --key-file="$GOOGLE_APPLICATION_CREDENTIALS"
+  ```
+  ```bash
+  gcloud auth application-default login
+  ```
+- To ensure these settings persist across sessions, add the `export` command to your `.bashrc` or equivalent shell configuration file.
+
+### Step 3: Terraform Setup for Resource Management
+- Alter the variables values in the `variables.tf` file located within the project's Terraform directory to match up with your specific project values: 
+   * credentials
+   * project name
+   * location
+   * region
+   * bq_dataset_name
+   * gcs_bucket_name
+   * gcs_storage_class 
+- Run the following Terraform commands within the project's Terraform directory from your command line:
+  ```shell
+    # Terraform initialization process
+    terraform init
+
+    # View what's planned to change
+    terraform plan
+
+    # Apply those new changes
+    terraform apply
+    ```
+**Note:** Ensure your variables.tf file accurately reflects your project's specifics to avoid any resource misconfigurations.
+### Step 4: Mage Setup for Extract/Load 
+* Navigate to the `mage` folder located within the project directory.
+* Rename the `dev.env` file to `.env`. This file will contain environment variables that Mage uses, including your dbt API token if you intend to integrate Mage with dbt for automated transformations. 
+
+* **Configure dbt Integration (Optional):**
+
+  * If you want Mage to automatically trigger dbt transformations, you'll need to add your dbt API token to the .env file. Find the line corresponding to the dbt API token and replace the placeholder with your actual token.
+  * Alternatively, if you prefer not to use Mage for triggering dbt, you can set up dbt Cloud to trigger transformations on a schedule. This approach requires configuring the dbt Cloud project separately.
+  
+    **NOTE:** The use of the dbt API is not available on the free tier of dbt. To utilize this feature, you'll need to upgrade to the paid Team version of dbt.
+
+ **Start Mage and Supporting Services:**
+* Ensure you are in the `mage` folder where the `docker-compose.yml` file is located.
+* Execute the following command to start the `Mage` application along with a PostgreSQL database container:
+  ```bash
+  docker compose up
+  ```
+* This command initializes and starts the necessary Docker containers for Mage and a PostgreSQL database, setting up the environment for your data pipelines.
+* Open a web browser and navigate to http://localhost:6789 to access the Mage UI.
+* run the pipelines
+* Within the Mage UI, navigate to the pipelines section to configure, initiate, and monitor the execution of the data pipelines.
+
+### Step 5: dbt Setup for Transformations
+
+* Create a new dbt Project in dbt Cloud: Sync the repository of this project to the dbt folder. Ensure you're selecting the correct repository location and syncing it under the project subfolder `/dbt`.
+* Select the BigQuery connection in dbt Cloud.
+Create a new service account in GCP specifically for dbt. This is important for isolating permissions and managing access securely.
+* Download the JSON key for the new service account and set up the authentication in dbt Cloud by providing the necessary credentials.
+* Edit the `dbt_project.yml` to update the `name` a to match your project's naming convention.
+* Update the `models` section as needed to reflect the structure and dependencies of the dbt models.  This is for the Team version of dbt only
+* Setup a `dbt api token` to trigger dbt via API from mage
+* Run the following command in the terminal dbt cloud to execute the transformations:
+	```
+	dbt build
+	``` 
+
+ ### Step 6: Setup visualizations using Looker Studio
+
+ * Go to [Looker Studio](https://datastudio.google.com/) and sign in with your Google account.
+ * Click on the `+ Create` button and select `Report` from the dropdown. Looker Studio will prompt you to choose a data source for the new report.
+ * In the `Create a new data source` panel, select `BigQuery` from the list of connectors.
+ * Navigate through the project and dataset to find the BigQuery tables you have prepared for this project.
+ * Once you've found the correct table, select it and then click on the `Connect` button in the upper right corner.
+ * After connecting your BigQuery table, Looker Studio will load the fields from your dataset on the right-hand side.
+ * Use the various visualization tools (charts, tables, graphs, etc.) provided by Looker Studio to create your dashboard. Drag and drop fields to the appropriate axes to create visualizations.
+ * Customize your visualizations with filters, styles, and controls according to your needs or insights you wish to highlight.
+  
+**Note:** Remember to review the access permissions of the BigQuery tables to ensure that your Google account has the necessary permissions to connect them with Looker Studio
+
+ ## Resource Clean Up
 Here are instructions for cleaning up Terraform resources to avoid incurring unnecessary cloud costs. You will want to tear down infrastructure provisioned by Terraform and immediately remove data from GCS and BigQuery.
 
 When it's time to clean up resources on Google Cloud Platform (GCP) and prevent additional charges, Terraform provides a straightforward method for resource destruction. The `terraform destroy` command is designed to remove infrastructure managed by Terraform. It's always good practice to double-check which resources are slated for removal before confirming the action to avoid unintended data loss or service interruption. 
@@ -140,3 +248,7 @@ terraform destroy
 - Fully host pipeline in the cloud. The mage docker container is the only remaining piece.
 - Improve the dashboard with more interactive features and improve the visualizations.
 - General respository clean up of unecessary files
+- Make the Project Reproducibility section more user-friendly  
+
+## Special Thanks
+**Thanks to [DataTalks.Club](https://datatalks.club) for the knowledge gained to complete this project. It truly is a great community.**
