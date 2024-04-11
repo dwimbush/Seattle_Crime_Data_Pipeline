@@ -29,8 +29,8 @@ In this project, we aim to build a robust data pipeline that takes Seattle crime
 
 ### Questions Addressed:
 - What are the common trends in crime incidents over the years?
-- How do crime rates vary by location and time?
-- What can we predict about future crime rates based on historical data?
+- How do crime rates vary by location?
+- How do crime rates and types vary during different times of the day, and what does this imply about the need for police presence or community engagement strategies?
 
 ## Dataset
 The dataset contains detailed records of crime data from the Seattle Police Department, spanning from 2008 to the present. It offers a granular view of crime incidents, covering a variety of offenses, locations, and times.
