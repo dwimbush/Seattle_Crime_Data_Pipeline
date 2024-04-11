@@ -3,7 +3,6 @@ import pandas as pd
 import pyarrow as pa
 import pyarrow.parquet as pq
 
-# Assuming necessary imports and initial setup are already in place.
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "/home/src/key.json"
 
 bucket_name = 'seattle-crime-48435-bucket'
@@ -36,7 +35,7 @@ def export_data(data, *args, **kwargs):
         # Writing the filtered DataFrame to the dataset.
         pq.write_to_dataset(
             pa.Table.from_pandas(year_data),
-            root_path=f'{bucket_name}/{table_name}',  # Full GCS URI is used here correctly for writing.
+            root_path=f'{bucket_name}/{table_name}',  # Full GCS URI is used here for writing.
             partition_cols=['report_year'],
             filesystem=fs
         )
