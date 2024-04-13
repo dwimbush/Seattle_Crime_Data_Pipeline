@@ -170,6 +170,7 @@ The decision to partition the Seattle Crime dataset by year was made for optimiz
    * bq_dataset_name
    * gcs_bucket_name
    * gcs_storage_class 
+
 - Run the following Terraform commands within the project's Terraform directory from your command line:
   ```bash
     # Terraform initialization process
@@ -263,7 +264,7 @@ terraform destroy
 
 ## Future Enhancements
 - Implement additional data sources to make correlations for broader insights.
-- Fully host pipeline in the cloud. The mage docker container is the only remaining piece.
+- Fully host pipeline in the cloud. The mage docker containers is the only remaining piece.
 - Improve the dashboard with more interactive features and improve the visualizations.
 - General respository clean up of unecessary files
 - Make the Project Reproducibility section more user-friendly  
